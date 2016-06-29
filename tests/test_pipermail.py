@@ -71,10 +71,10 @@ class TestPipermailList(unittest.TestCase):
     def test_fetch(self):
         """Test whether archives are fetched"""
 
-        pipermail_index = read_file('data/pipermail_index.html')
-        mbox_nov = read_file('data/pipermail_2015_november.mbox')
-        mbox_march = read_file('data/pipermail_2016_march.mbox')
-        mbox_april = read_file('data/pipermail_2016_april.mbox')
+        pipermail_index = read_file('data/pipermail/pipermail_index.html')
+        mbox_nov = read_file('data/pipermail/pipermail_2015_november.mbox')
+        mbox_march = read_file('data/pipermail/pipermail_2016_march.mbox')
+        mbox_april = read_file('data/pipermail/pipermail_2016_april.mbox')
 
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,
@@ -110,7 +110,7 @@ class TestPipermailList(unittest.TestCase):
     def test_fetch_empty(self):
         """Test whether it do not stores anything when the list of archives is ampty"""
 
-        pipermail_index = read_file('data/pipermail_index_empty.html')
+        pipermail_index = read_file('data/pipermail/pipermail_index_empty.html')
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,
                                body=pipermail_index)
@@ -124,10 +124,10 @@ class TestPipermailList(unittest.TestCase):
     def test_fetch_from_date(self):
         """Test whether it only downloads archives after a given date"""
 
-        pipermail_index = read_file('data/pipermail_index.html')
-        mbox_nov = read_file('data/pipermail_2015_november.mbox')
-        mbox_march = read_file('data/pipermail_2016_march.mbox')
-        mbox_april = read_file('data/pipermail_2016_april.mbox')
+        pipermail_index = read_file('data/pipermail/pipermail_index.html')
+        mbox_nov = read_file('data/pipermail/pipermail_2015_november.mbox')
+        mbox_march = read_file('data/pipermail/pipermail_2016_march.mbox')
+        mbox_april = read_file('data/pipermail/pipermail_2016_april.mbox')
 
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,
@@ -160,11 +160,11 @@ class TestPipermailList(unittest.TestCase):
         """Test whether it returns the mboxes ordered by the date on their filenames"""
 
         # Simulate the fetch process copying the files
-        shutil.copy('data/pipermail_2015_november.mbox',
+        shutil.copy('data/pipermail/pipermail_2015_november.mbox',
                     os.path.join(self.tmp_path, '2015-November.txt.gz'))
-        shutil.copy('data/pipermail_2016_march.mbox',
+        shutil.copy('data/pipermail/pipermail_2016_march.mbox',
                     os.path.join(self.tmp_path, '2016-March.txt'))
-        shutil.copy('data/pipermail_2016_april.mbox',
+        shutil.copy('data/pipermail/pipermail_2016_april.mbox',
                     os.path.join(self.tmp_path, '2016-April.txt'))
 
         pmls = PipermailList('http://example.com/', self.tmp_path)
@@ -206,10 +206,10 @@ class TestPipermailBackend(unittest.TestCase):
     def test_fetch(self):
         """Test whether it fetches and parses messages"""
 
-        pipermail_index = read_file('data/pipermail_index.html')
-        mbox_nov = read_file('data/pipermail_2015_november.mbox')
-        mbox_march = read_file('data/pipermail_2016_march.mbox')
-        mbox_april = read_file('data/pipermail_2016_april.mbox')
+        pipermail_index = read_file('data/pipermail/pipermail_index.html')
+        mbox_nov = read_file('data/pipermail/pipermail_2015_november.mbox')
+        mbox_march = read_file('data/pipermail/pipermail_2016_march.mbox')
+        mbox_april = read_file('data/pipermail/pipermail_2016_april.mbox')
 
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,
@@ -257,10 +257,10 @@ class TestPipermailBackend(unittest.TestCase):
     def test_fetch_apache(self):
         """Test whether it fetches and parses apache's messages"""
 
-        pipermail_index = read_file('data/pipermail_apache_index.html')
-        mbox_nov = read_file('data/pipermail_2015_november.mbox')
-        mbox_march = read_file('data/pipermail_2016_march.mbox')
-        mbox_april = read_file('data/pipermail_2016_april.mbox')
+        pipermail_index = read_file('data/pipermail/pipermail_apache_index.html')
+        mbox_nov = read_file('data/pipermail/pipermail_2015_november.mbox')
+        mbox_march = read_file('data/pipermail/pipermail_2016_march.mbox')
+        mbox_april = read_file('data/pipermail/pipermail_2016_april.mbox')
 
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,
@@ -308,10 +308,10 @@ class TestPipermailBackend(unittest.TestCase):
     def test_fetch_from_date(self):
         """Test whether it fetches and parses messages since the given date"""
 
-        pipermail_index = read_file('data/pipermail_index.html')
-        mbox_nov = read_file('data/pipermail_2015_november.mbox')
-        mbox_march = read_file('data/pipermail_2016_march.mbox')
-        mbox_april = read_file('data/pipermail_2016_april.mbox')
+        pipermail_index = read_file('data/pipermail/pipermail_index.html')
+        mbox_nov = read_file('data/pipermail/pipermail_2015_november.mbox')
+        mbox_march = read_file('data/pipermail/pipermail_2016_march.mbox')
+        mbox_april = read_file('data/pipermail/pipermail_2016_april.mbox')
 
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,
@@ -366,7 +366,7 @@ class TestPipermailBackend(unittest.TestCase):
     def test_fetch_empty(self):
         """Test whether it works when pipermail does not store any mbox"""
 
-        pipermail_index = read_file('data/pipermail_index_empty.html')
+        pipermail_index = read_file('data/pipermail/pipermail_index_empty.html')
 
         httpretty.register_uri(httpretty.GET,
                                PIPERMAIL_URL,

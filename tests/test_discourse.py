@@ -83,11 +83,11 @@ class TestDiscourseBackend(unittest.TestCase):
 
         requests_http = []
 
-        bodies_topics = [read_file('data/discourse_topics.json'),
-                         read_file('data/discourse_topics_empty.json')]
-        body_topic_1148 = read_file('data/discourse_topic_1148.json')
-        body_topic_1149 = read_file('data/discourse_topic_1149.json')
-        body_post = read_file('data/discourse_post.json')
+        bodies_topics = [read_file('data/discourse/discourse_topics.json'),
+                         read_file('data/discourse/discourse_topics_empty.json')]
+        body_topic_1148 = read_file('data/discourse/discourse_topic_1148.json')
+        body_topic_1149 = read_file('data/discourse/discourse_topic_1149.json')
+        body_post = read_file('data/discourse/discourse_post.json')
 
         def request_callback(method, uri, headers):
             if uri.startswith(DISCOURSE_TOPICS_URL):
@@ -181,11 +181,11 @@ class TestDiscourseBackend(unittest.TestCase):
 
         requests_http = []
 
-        bodies_topics = [read_file('data/discourse_topics.json'),
-                         read_file('data/discourse_topics_empty.json')]
-        body_topic_1148 = read_file('data/discourse_topic_1148.json')
-        body_topic_1149 = read_file('data/discourse_topic_1149.json')
-        body_post = read_file('data/discourse_post.json')
+        bodies_topics = [read_file('data/discourse/discourse_topics.json'),
+                         read_file('data/discourse/discourse_topics_empty.json')]
+        body_topic_1148 = read_file('data/discourse/discourse_topic_1148.json')
+        body_topic_1149 = read_file('data/discourse/discourse_topic_1149.json')
+        body_post = read_file('data/discourse/discourse_post.json')
 
         def request_callback(method, uri, headers):
             if uri.startswith(DISCOURSE_TOPICS_URL):
@@ -262,7 +262,7 @@ class TestDiscourseBackend(unittest.TestCase):
     def test_fetch_empty(self):
         """Test whether it works when no topics are fetched"""
 
-        body = read_file('data/discourse_topics_empty.json')
+        body = read_file('data/discourse/discourse_topics_empty.json')
         httpretty.register_uri(httpretty.GET,
                                DISCOURSE_TOPICS_URL,
                                body=body, status=200)
@@ -276,12 +276,12 @@ class TestDiscourseBackend(unittest.TestCase):
     def test_fetch_pinned(self):
         """Test whether the right list of topics is returned when some topics are pinned"""
 
-        bodies_topics = [read_file('data/discourse_topics_pinned.json'),
-                         read_file('data/discourse_topics_empty.json')]
-        body_topic_1148 = read_file('data/discourse_topic_1148.json')
-        body_topic_1149 = read_file('data/discourse_topic_1149.json')
-        body_topic_1150 = read_file('data/discourse_topic_1150.json')
-        body_post = read_file('data/discourse_post.json')
+        bodies_topics = [read_file('data/discourse/discourse_topics_pinned.json'),
+                         read_file('data/discourse/discourse_topics_empty.json')]
+        body_topic_1148 = read_file('data/discourse/discourse_topic_1148.json')
+        body_topic_1149 = read_file('data/discourse/discourse_topic_1149.json')
+        body_topic_1150 = read_file('data/discourse/discourse_topic_1150.json')
+        body_post = read_file('data/discourse/discourse_post.json')
 
         def request_callback(method, uri, headers):
             if uri.startswith(DISCOURSE_TOPICS_URL):
@@ -368,11 +368,11 @@ class TestDiscourseBackendCache(unittest.TestCase):
 
         requests_http = []
 
-        bodies_topics = [read_file('data/discourse_topics.json'),
-                         read_file('data/discourse_topics_empty.json')]
-        body_topic_1148 = read_file('data/discourse_topic_1148.json')
-        body_topic_1149 = read_file('data/discourse_topic_1149.json')
-        body_post = read_file('data/discourse_post.json')
+        bodies_topics = [read_file('data/discourse/discourse_topics.json'),
+                         read_file('data/discourse/discourse_topics_empty.json')]
+        body_topic_1148 = read_file('data/discourse/discourse_topic_1148.json')
+        body_topic_1149 = read_file('data/discourse/discourse_topic_1149.json')
+        body_post = read_file('data/discourse/discourse_post.json')
 
         def request_callback(method, uri, headers):
             if uri.startswith(DISCOURSE_TOPICS_URL):
@@ -496,7 +496,7 @@ class TestDiscourseClient(unittest.TestCase):
         """Test topics_page API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/discourse_topics.json')
+        body = read_file('data/discourse/discourse_topics.json')
         httpretty.register_uri(httpretty.GET,
                                DISCOURSE_TOPICS_URL,
                                body=body, status=200)
@@ -538,7 +538,7 @@ class TestDiscourseClient(unittest.TestCase):
         """Test topic API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/discourse_topic_1148.json')
+        body = read_file('data/discourse/discourse_topic_1148.json')
         httpretty.register_uri(httpretty.GET,
                                DISCOURSE_TOPIC_URL_1148,
                                body=body, status=200)
@@ -565,7 +565,7 @@ class TestDiscourseClient(unittest.TestCase):
         """Test post API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/discourse_post.json')
+        body = read_file('data/discourse/discourse_post.json')
         httpretty.register_uri(httpretty.GET,
                                DISCOURSE_POST_URL_1,
                                body=body, status=200)

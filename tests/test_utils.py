@@ -69,12 +69,12 @@ class TestCheckCompressedFileType(unittest.TestCase):
             else:
                 mod = gzip
 
-            with open('data/mbox_single.mbox', 'rb') as f_in:
+            with open('data/mbox/mbox_single.mbox', 'rb') as f_in:
                 with mod.open(fname, 'wb') as f_out:
                     shutil.copyfileobj(f_in, f_out)
 
         # Copy a plain file
-        shutil.copy('data/mbox_single.mbox', cls.tmp_path)
+        shutil.copy('data/mbox/mbox_single.mbox', cls.tmp_path)
 
     @classmethod
     def tearDownClass(cls):
@@ -256,7 +256,7 @@ class TestRemoveInvalidXMLChars(unittest.TestCase):
     """Unit tests for remove_invalid_xml_characters"""
 
     def test_remove_chars(self):
-        raw_xml = read_file('data/bugzilla_bugs_invalid_chars.xml')
+        raw_xml = read_file('data/bugzilla/bugzilla_bugs_invalid_chars.xml')
         purged_xml = remove_invalid_xml_chars(raw_xml)
 
         self.assertNotEqual(purged_xml, raw_xml)
@@ -269,7 +269,7 @@ class TestXMLtoDict(unittest.TestCase):
     def test_xml_to_dict(self):
         """Check whether it converts a XML file to a dict"""
 
-        raw_xml = read_file('data/bugzilla_bug.xml')
+        raw_xml = read_file('data/bugzilla/bugzilla_bug.xml')
         d = xml_to_dict(raw_xml)
 
         self.assertIsInstance(d, dict)
@@ -290,7 +290,7 @@ class TestXMLtoDict(unittest.TestCase):
     def test_remove_invalid_xml_chars(self):
         """Check whether it removes invalid characters and parses the stream"""
 
-        raw_xml = read_file('data/bugzilla_bugs_invalid_chars.xml')
+        raw_xml = read_file('data/bugzilla/bugzilla_bugs_invalid_chars.xml')
         d = xml_to_dict(raw_xml)
 
         self.assertIsInstance(d, dict)

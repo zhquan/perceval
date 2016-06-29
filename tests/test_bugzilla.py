@@ -82,14 +82,14 @@ class TestBugzillaBackend(unittest.TestCase):
         """Test whether a list of bugs is returned"""
 
         requests = []
-        bodies_csv = [read_file('data/bugzilla_buglist.csv'),
-                      read_file('data/bugzilla_buglist_next.csv'),
+        bodies_csv = [read_file('data/bugzilla/bugzilla_buglist.csv'),
+                      read_file('data/bugzilla/bugzilla_buglist_next.csv'),
                       ""]
-        bodies_xml = [read_file('data/bugzilla_version.xml', mode='rb'),
-                      read_file('data/bugzilla_bugs_details.xml', mode='rb'),
-                      read_file('data/bugzilla_bugs_details_next.xml', mode='rb')]
-        bodies_html = [read_file('data/bugzilla_bug_activity.html', mode='rb'),
-                       read_file('data/bugzilla_bug_activity_empty.html', mode='rb')]
+        bodies_xml = [read_file('data/bugzilla/bugzilla_version.xml', mode='rb'),
+                      read_file('data/bugzilla/bugzilla_bugs_details.xml', mode='rb'),
+                      read_file('data/bugzilla/bugzilla_bugs_details_next.xml', mode='rb')]
+        bodies_html = [read_file('data/bugzilla/bugzilla_bug_activity.html', mode='rb'),
+                       read_file('data/bugzilla/bugzilla_bug_activity_empty.html', mode='rb')]
 
         def request_callback(method, uri, headers):
             if uri.startswith(BUGZILLA_BUGLIST_URL):
@@ -200,12 +200,12 @@ class TestBugzillaBackend(unittest.TestCase):
         """Test whether a list of bugs is returned from a given date"""
 
         requests = []
-        bodies_csv = [read_file('data/bugzilla_buglist_next.csv'),
+        bodies_csv = [read_file('data/bugzilla/bugzilla_buglist_next.csv'),
                       ""]
-        bodies_xml = [read_file('data/bugzilla_version.xml', mode='rb'),
-                      read_file('data/bugzilla_bugs_details_next.xml', mode='rb')]
-        bodies_html = [read_file('data/bugzilla_bug_activity.html', mode='rb'),
-                       read_file('data/bugzilla_bug_activity_empty.html', mode='rb')]
+        bodies_xml = [read_file('data/bugzilla/bugzilla_version.xml', mode='rb'),
+                      read_file('data/bugzilla/bugzilla_bugs_details_next.xml', mode='rb')]
+        bodies_html = [read_file('data/bugzilla/bugzilla_bug_activity.html', mode='rb'),
+                       read_file('data/bugzilla/bugzilla_bug_activity_empty.html', mode='rb')]
 
         def request_callback(method, uri, headers):
             if uri.startswith(BUGZILLA_BUGLIST_URL):
@@ -290,7 +290,7 @@ class TestBugzillaBackend(unittest.TestCase):
     def test_fetch_empty(self):
         """Test whethet it works when no bugs are fetched"""
 
-        body = read_file('data/bugzilla_version.xml')
+        body = read_file('data/bugzilla/bugzilla_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
@@ -322,12 +322,12 @@ class TestBugzillaBackend(unittest.TestCase):
         """Test whether authentication works"""
 
         requests = []
-        bodies_csv = [read_file('data/bugzilla_buglist_next.csv'),
+        bodies_csv = [read_file('data/bugzilla/bugzilla_buglist_next.csv'),
                       ""]
-        bodies_xml = [read_file('data/bugzilla_version.xml', mode='rb'),
-                      read_file('data/bugzilla_bugs_details_next.xml', mode='rb')]
-        bodies_html = [read_file('data/bugzilla_bug_activity.html', mode='rb'),
-                       read_file('data/bugzilla_bug_activity_empty.html', mode='rb')]
+        bodies_xml = [read_file('data/bugzilla/bugzilla_version.xml', mode='rb'),
+                      read_file('data/bugzilla/bugzilla_bugs_details_next.xml', mode='rb')]
+        bodies_html = [read_file('data/bugzilla/bugzilla_bug_activity.html', mode='rb'),
+                       read_file('data/bugzilla/bugzilla_bug_activity_empty.html', mode='rb')]
 
         def request_callback(method, uri, headers):
             if uri.startswith(BUGZILLA_LOGIN_URL):
@@ -442,14 +442,14 @@ class TestBugzillaBackendCache(unittest.TestCase):
         """Test whether the cache works"""
 
         requests = []
-        bodies_csv = [read_file('data/bugzilla_buglist.csv'),
-                      read_file('data/bugzilla_buglist_next.csv'),
+        bodies_csv = [read_file('data/bugzilla/bugzilla_buglist.csv'),
+                      read_file('data/bugzilla/bugzilla_buglist_next.csv'),
                       ""]
-        bodies_xml = [read_file('data/bugzilla_version.xml', mode='rb'),
-                      read_file('data/bugzilla_bugs_details.xml', mode='rb'),
-                      read_file('data/bugzilla_bugs_details_next.xml', mode='rb')]
-        bodies_html = [read_file('data/bugzilla_bug_activity.html', mode='rb'),
-                       read_file('data/bugzilla_bug_activity_empty.html', mode='rb')]
+        bodies_xml = [read_file('data/bugzilla/bugzilla_version.xml', mode='rb'),
+                      read_file('data/bugzilla/bugzilla_bugs_details.xml', mode='rb'),
+                      read_file('data/bugzilla/bugzilla_bugs_details_next.xml', mode='rb')]
+        bodies_html = [read_file('data/bugzilla/bugzilla_bug_activity.html', mode='rb'),
+                       read_file('data/bugzilla/bugzilla_bug_activity_empty.html', mode='rb')]
 
         def request_callback(method, uri, headers):
             if uri.startswith(BUGZILLA_BUGLIST_URL):
@@ -536,7 +536,7 @@ class TestBugzillaBackendParsers(unittest.TestCase):
     def test_parse_buglist(self):
         """Test buglist parsing"""
 
-        raw_csv = read_file('data/bugzilla_buglist.csv')
+        raw_csv = read_file('data/bugzilla/bugzilla_buglist.csv')
 
         bugs = Bugzilla.parse_buglist(raw_csv)
         result = [bug for bug in bugs]
@@ -548,7 +548,7 @@ class TestBugzillaBackendParsers(unittest.TestCase):
     def test_parse_bugs_details(self):
         """Test bugs details parsing"""
 
-        raw_xml = read_file('data/bugzilla_bugs_details.xml')
+        raw_xml = read_file('data/bugzilla/bugzilla_bugs_details.xml')
 
         bugs = Bugzilla.parse_bugs_details(raw_xml)
         result = [bug for bug in bugs]
@@ -561,7 +561,7 @@ class TestBugzillaBackendParsers(unittest.TestCase):
 
         self.assertListEqual(bug_ids, expected)
 
-        raw_xml = read_file('data/bugzilla_bugs_details_next.xml')
+        raw_xml = read_file('data/bugzilla/bugzilla_bugs_details_next.xml')
 
         bugs = Bugzilla.parse_bugs_details(raw_xml)
         result = [bug for bug in bugs]
@@ -569,7 +569,7 @@ class TestBugzillaBackendParsers(unittest.TestCase):
     def test_parse_invalid_bug_details(self):
         """Test whether it fails parsing an invalid XML with no bugs"""
 
-        raw_xml = read_file('data/bugzilla_bugs_details_not_valid.xml')
+        raw_xml = read_file('data/bugzilla/bugzilla_bugs_details_not_valid.xml')
 
         with self.assertRaises(ParseError):
             bugs = Bugzilla.parse_bugs_details(raw_xml)
@@ -578,7 +578,7 @@ class TestBugzillaBackendParsers(unittest.TestCase):
     def test_parse_activity(self):
         """Test activity bug parsing"""
 
-        raw_html = read_file('data/bugzilla_bug_activity.html')
+        raw_html = read_file('data/bugzilla/bugzilla_bug_activity.html')
 
         activity = Bugzilla.parse_bug_activity(raw_html)
         result = [event for event in activity]
@@ -610,13 +610,13 @@ class TestBugzillaBackendParsers(unittest.TestCase):
         # The first case includes the term 'bug' while the second
         # one replaces it by 'issue'.
 
-        raw_html = read_file('data/bugzilla_bug_activity_empty.html')
+        raw_html = read_file('data/bugzilla/bugzilla_bug_activity_empty.html')
 
         activity = Bugzilla.parse_bug_activity(raw_html)
         result = [event for event in activity]
         self.assertEqual(len(result), 0)
 
-        raw_html = read_file('data/bugzilla_bug_activity_empty_alt.html')
+        raw_html = read_file('data/bugzilla/bugzilla_bug_activity_empty_alt.html')
 
         activity = Bugzilla.parse_bug_activity(raw_html)
         result = [event for event in activity]
@@ -625,7 +625,7 @@ class TestBugzillaBackendParsers(unittest.TestCase):
     def test_parse_activity_no_table(self):
         """Test if it raises an exception the activity table is not found"""
 
-        raw_html = read_file('data/bugzilla_bug_activity_not_valid.html')
+        raw_html = read_file('data/bugzilla/bugzilla_bug_activity_not_valid.html')
 
         with self.assertRaises(ParseError):
             activity = Bugzilla.parse_bug_activity(raw_html)
@@ -644,7 +644,7 @@ class TestBugzillaCommand(unittest.TestCase):
                                body="index.cgi?logout=1",
                                status=200)
 
-        body = read_file('data/bugzilla_version.xml')
+        body = read_file('data/bugzilla/bugzilla_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
@@ -733,7 +733,7 @@ class TestBugzillaClient(unittest.TestCase):
         """Test if it fails when the server version is not found"""
 
         # Set up a mock HTTP server
-        body = read_file('data/bugzilla_no_version.xml')
+        body = read_file('data/bugzilla/bugzilla_no_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
@@ -747,7 +747,7 @@ class TestBugzillaClient(unittest.TestCase):
         """Test metadata API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/bugzilla_version.xml')
+        body = read_file('data/bugzilla/bugzilla_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
@@ -772,12 +772,12 @@ class TestBugzillaClient(unittest.TestCase):
         """Test buglist API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/bugzilla_version.xml')
+        body = read_file('data/bugzilla/bugzilla_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
 
-        body = read_file('data/bugzilla_buglist.csv')
+        body = read_file('data/bugzilla/bugzilla_buglist.csv')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_BUGLIST_URL,
                                body=body, status=200)
@@ -825,12 +825,12 @@ class TestBugzillaClient(unittest.TestCase):
         """Test buglist API call when the version of the server is less than 3.3"""
 
         # Set up a mock HTTP server
-        body = read_file('data/bugzilla_version.xml')
+        body = read_file('data/bugzilla/bugzilla_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
 
-        body = read_file('data/bugzilla_buglist.csv')
+        body = read_file('data/bugzilla/bugzilla_buglist.csv')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_BUGLIST_URL,
                                body=body, status=200)
@@ -860,7 +860,7 @@ class TestBugzillaClient(unittest.TestCase):
         """Test bugs API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/bugzilla_bug.xml')
+        body = read_file('data/bugzilla/bugzilla_bug.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_BUG_URL,
                                body=body, status=200)
@@ -889,12 +889,12 @@ class TestBugzillaClient(unittest.TestCase):
         """Test bug acitivity API call"""
 
         # Set up a mock HTTP server
-        body = read_file('data/bugzilla_version.xml')
+        body = read_file('data/bugzilla/bugzilla_version.xml')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_METADATA_URL,
                                body=body, status=200)
 
-        body = read_file('data/bugzilla_bug_activity.html')
+        body = read_file('data/bugzilla/bugzilla_bug_activity.html')
         httpretty.register_uri(httpretty.GET,
                                BUGZILLA_BUG_ACTIVITY_URL,
                                body=body, status=200)

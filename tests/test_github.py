@@ -61,9 +61,9 @@ class TestGitHubBackend(unittest.TestCase):
     def test_fetch(self):
         """ Test whether a list of issues is returned """
 
-        body = read_file('data/github_request')
-        login = read_file('data/github_login')
-        orgs = read_file('data/github_orgs')
+        body = read_file('data/github/github_request')
+        login = read_file('data/github/github_login')
+        orgs = read_file('data/github/github_orgs')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -91,7 +91,7 @@ class TestGitHubBackend(unittest.TestCase):
         github = GitHub("zhquan_example", "repo", "aaa")
         issues = [issues for issues in github.fetch()]
 
-        expected = json.loads(read_file('data/github_request_expected'))
+        expected = json.loads(read_file('data/github/github_request_expected'))
         del issues[0]['timestamp']
         self.assertDictEqual(issues[0], expected)
 
@@ -99,9 +99,9 @@ class TestGitHubBackend(unittest.TestCase):
     def test_fetch_more_issues(self):
         """ Test when return two issues """
 
-        login = read_file('data/github_login')
-        issue_1 = read_file('data/github_issue_1')
-        issue_2 = read_file('data/github_issue_2')
+        login = read_file('data/github/github_login')
+        issue_1 = read_file('data/github/github_issue_1')
+        issue_2 = read_file('data/github/github_issue_2')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -140,8 +140,8 @@ class TestGitHubBackend(unittest.TestCase):
 
         self.assertEqual(len(issues), 2)
 
-        expected_1 = json.loads(read_file('data/github_issue_expected_1'))
-        expected_2 = json.loads(read_file('data/github_issue_expected_2'))
+        expected_1 = json.loads(read_file('data/github/github_issue_expected_1'))
+        expected_2 = json.loads(read_file('data/github/github_issue_expected_2'))
         del issues[0]['timestamp']
         del issues[1]['timestamp']
         self.assertDictEqual(issues[0], expected_1)
@@ -151,8 +151,8 @@ class TestGitHubBackend(unittest.TestCase):
     def test_fetch_from_date(self):
         """ Test when return from date """
 
-        login = read_file('data/github_login')
-        body = read_file('data/github_issue_2')
+        login = read_file('data/github/github_login')
+        body = read_file('data/github/github_issue_2')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -182,7 +182,7 @@ class TestGitHubBackend(unittest.TestCase):
 
         issues = [issues for issues in github.fetch(from_date=from_date)]
 
-        expected = json.loads(read_file('data/github_issue_expected_2'))
+        expected = json.loads(read_file('data/github/github_issue_expected_2'))
         del issues[0]['timestamp']
         self.assertDictEqual(issues[0], expected)
 
@@ -191,7 +191,7 @@ class TestGitHubBackend(unittest.TestCase):
         """ Test when return empty """
 
         body = ""
-        login = read_file('data/github_login')
+        login = read_file('data/github/github_login')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -236,8 +236,8 @@ class TestGitHubBackendCache(unittest.TestCase):
     def test_fetch_from_cache(self):
         """ Test whether a list of issues is returned from cache """
 
-        body = read_file('data/github_request')
-        login = read_file('data/github_login')
+        body = read_file('data/github/github_request')
+        login = read_file('data/github/github_login')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -304,7 +304,7 @@ class TestGitHubClient(unittest.TestCase):
     def test_get_issues(self):
         """ Test get_issues API call """
 
-        issue = read_file('data/github_request')
+        issue = read_file('data/github/github_request')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -334,7 +334,7 @@ class TestGitHubClient(unittest.TestCase):
     def test_get_from_date_issues(self):
         """ Test get_from_issues API call """
 
-        issue = read_file('data/github_request_from_2016_03_01')
+        issue = read_file('data/github/github_request_from_2016_03_01')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -367,8 +367,8 @@ class TestGitHubClient(unittest.TestCase):
     def test_get_page_issues(self):
         """ Test get_page_issue API call """
 
-        issue_1 = read_file('data/github_issue_1')
-        issue_2 = read_file('data/github_issue_2')
+        issue_1 = read_file('data/github/github_issue_1')
+        issue_2 = read_file('data/github/github_issue_2')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -412,7 +412,7 @@ class TestGitHubClient(unittest.TestCase):
     def test_get_empty_issues(self):
         """ Test when issue is empty API call """
 
-        issue = read_file('data/github_empty_request')
+        issue = read_file('data/github/github_empty_request')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
@@ -442,7 +442,7 @@ class TestGitHubClient(unittest.TestCase):
     def test_get_user(self):
         """ Test get_user API call """
 
-        login = read_file('data/github_login')
+        login = read_file('data/github/github_login')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_USER_URL,
@@ -460,7 +460,7 @@ class TestGitHubClient(unittest.TestCase):
     def test_get_user_orgs(self):
         """ Test get_user_orgs API call """
 
-        orgs = read_file('data/github_orgs')
+        orgs = read_file('data/github/github_orgs')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ORGS_URL,
@@ -510,12 +510,12 @@ class TestGitHubClient(unittest.TestCase):
     def test_sleep_for_rate(self):
         """ Test get_page_issue API call """
 
-        issue_1 = read_file('data/github_empty_request')
-        issue_2 = read_file('data/github_empty_request')
+        issue_1 = read_file('data/github/github_empty_request')
+        issue_2 = read_file('data/github/github_empty_request')
 
         wait = 1
         reset = int(time.time() + wait)
-        
+
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,
                                body=issue_1,
@@ -562,7 +562,7 @@ class TestGitHubClient(unittest.TestCase):
     def test_rate_limit_error(self):
         """ Test get_page_issue API call """
 
-        issue = read_file('data/github_empty_request')
+        issue = read_file('data/github/github_empty_request')
 
         httpretty.register_uri(httpretty.GET,
                                GITHUB_ISSUES_URL,

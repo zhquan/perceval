@@ -51,7 +51,7 @@ class TestGitBackend(unittest.TestCase):
         cls.tmp_path = tempfile.mkdtemp(prefix='perceval_')
         cls.git_path = os.path.join(cls.tmp_path, 'gittest')
 
-        subprocess.check_call(['tar', '-xzf', 'data/gittest.tar.gz',
+        subprocess.check_call(['tar', '-xzf', 'data/git/gittest.tar.gz',
                                '-C', cls.tmp_path])
 
     @classmethod
@@ -160,7 +160,7 @@ class TestGitBackend(unittest.TestCase):
     def test_fetch_from_file(self):
         """Test whether commits are fetched from a Git log file"""
 
-        git = Git('http://example.com.git', 'data/git_log.txt')
+        git = Git('http://example.com.git', 'data/git/git_log.txt')
         commits = [commit for commit in git.fetch()]
 
         expected = [('456a68ee1407a77f3e804a30dff245bb6c6b872f', 1392185439.0),
@@ -186,7 +186,7 @@ class TestGitBackend(unittest.TestCase):
     def test_git_parser(self):
         """Test if the static method parses a git log file"""
 
-        commits = Git.parse_git_log_from_file("data/git_log.txt")
+        commits = Git.parse_git_log_from_file("data/git/git_log.txt")
         result = [commit['commit'] for commit in commits]
 
         expected = ['456a68ee1407a77f3e804a30dff245bb6c6b872f',
@@ -204,7 +204,7 @@ class TestGitBackend(unittest.TestCase):
     def test_git_encoding_error(self):
         """Test if encoding errors are escaped when a git log is parsed"""
 
-        commits = Git.parse_git_log_from_file("data/git_bad_encoding.txt")
+        commits = Git.parse_git_log_from_file("data/git/git_bad_encoding.txt")
         result = [commit for commit in commits]
 
         self.assertEqual(len(result), 1)
@@ -224,7 +224,7 @@ class TestGitBackend(unittest.TestCase):
 
         """
 
-        commits = Git.parse_git_log_from_file("data/git_bad_cr.txt")
+        commits = Git.parse_git_log_from_file("data/git/git_bad_cr.txt")
         result = [commit for commit in commits]
         self.assertEqual(len(result), 1)
 
@@ -253,12 +253,12 @@ class TestGitCommand(unittest.TestCase):
     def test_parsing_on_init(self):
         """Test if the class is initialized"""
 
-        args = ['--git-log', 'data/git_log.txt', 'http://example.com/',
+        args = ['--git-log', 'data/git/git_log.txt', 'http://example.com/',
                 '--origin', 'test']
 
         cmd = GitCommand(*args)
         self.assertIsInstance(cmd.parsed_args, argparse.Namespace)
-        self.assertEqual(cmd.parsed_args.git_log, "data/git_log.txt")
+        self.assertEqual(cmd.parsed_args.git_log, "data/git/git_log.txt")
         self.assertEqual(cmd.parsed_args.uri, 'http://example.com/')
         self.assertEqual(cmd.parsed_args.origin, 'test')
         self.assertIsInstance(cmd.backend, Git)
@@ -276,7 +276,7 @@ class TestGitParser(unittest.TestCase):
     def test_parser(self):
         """Test if it parsers a git log stream"""
 
-        with open("data/git_log.txt", 'r') as f:
+        with open("data/git/git_log.txt", 'r') as f:
             parser = GitParser(f)
             commits = [commit for commit in parser.parse()]
 
@@ -331,7 +331,7 @@ class TestGitParser(unittest.TestCase):
     def test_parser_empty_log(self):
         """Test if it parsers an empty git log stream"""
 
-        with open("data/git_log_empty.txt", 'r') as f:
+        with open("data/git/git_log_empty.txt", 'r') as f:
             parser = GitParser(f)
             commits = [commit for commit in parser.parse()]
 
@@ -457,7 +457,7 @@ class TestGitRepository(unittest.TestCase):
         cls.tmp_path = tempfile.mkdtemp(prefix='perceval_')
         cls.git_path = os.path.join(cls.tmp_path, 'gittest')
 
-        subprocess.check_call(['tar', '-xzf', 'data/gittest.tar.gz',
+        subprocess.check_call(['tar', '-xzf', 'data/git/gittest.tar.gz',
                                '-C', cls.tmp_path])
 
     @classmethod
